@@ -14,4 +14,4 @@ RUN apt-get update && \
 COPY . /baseDir
 
 WORKDIR /baseDir
-CMD ["/bin/bash", "-c", "./main.sh"]
+CMD ["/bin/bash", "./main.sh"]
