@@ -27,13 +27,13 @@ class CommonException(Exception):
             self.message = message
 
 def parse_and_fetch(request, remote_address):
-    if "hostname" not in request.keys():
-        raise CommonException("-1","hostname not exist")
-    if "user" not in request.keys():
-        raise CommonException("-1","user not exist")
-    if "password" not in request.keys():
-        raise CommonException("-1","password not exist")
-    print request
+    # if "hostname" not in request.keys():
+    #     raise CommonException("-1","hostname not exist")
+    # if "user" not in request.keys():
+    #     raise CommonException("-1","user not exist")
+    # if "password" not in request.keys():
+    #     raise CommonException("-1","password not exist")
+    print remote_address
     return "success"
 
 def app(environ, start_response):
