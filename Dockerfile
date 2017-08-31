@@ -10,7 +10,7 @@ RUN apt-get update && \
     && apt-get clean \
     && apt-get autoclean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-    && ln -s /bin/python2.7 /bin/python
+    && ln -s /bin/python2.7 /bin/python \
     && mkdir -p /baseDir
 
 COPY . /baseDir
