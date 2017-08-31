@@ -44,9 +44,15 @@ def app(environ, start_response):
     path_info = environ["PATH_INFO"]  # /hi/name/index.action
     query_string = environ["QUERY_STRING"] # ?后面的东西
     remote_address = environ["REMOTE_ADDR"] # 访问者ip
+    if "HTTP_X_FORWARDED_FOR" in environ:
+        ip_array = str(environ["HTTP_X_FORWARDED_FOR"]).split(",")
+        if len(ip_array) > 0:
+            remote_address = ip_array[0].strip()
+
     print "request_method:"+request_method
     print "path_info:"+path_info
     print "remote_address:"+remote_address
+
 
     if request_method == "GET" :
         request = parse_qs(query_string)
@@ -69,7 +75,8 @@ def app(environ, start_response):
         response_code = "200 OK"
         response_header = [('Content-type', 'text/html')]
         try:
-            fetch_result = parse_and_fetch(request, environ["REMOTE_ADDR"])
+
+            fetch_result = parse_and_fetch(request, remote_address)
             response_data = {"code":"1","message":"success","result":fetch_result}
             response_string = json.dumps(response_data)
         except CommonException as ce:
