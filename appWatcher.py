@@ -25,7 +25,6 @@ def restart_app(api_token, app_id):
     print res
 
 if __name__ == '__main__':
-    exit(1)
     if "API_TOKEN" not in os.environ:
         exit(1)
     if "APP_ID" not in os.environ:
