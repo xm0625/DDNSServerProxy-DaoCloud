@@ -14,6 +14,8 @@ from cgi import parse_qs, escape
 import urllib
 import urllib2
 import json
+import base64
+
 
 class CommonException(Exception):
     code = "0"
@@ -26,15 +28,27 @@ class CommonException(Exception):
         if message:
             self.message = message
 
+
+def perform_dns_update(hostname, user, password, ip):
+    url = "http://members.3322.net/dyndns/update?system=dyndns&hostname=%s&myip=%s" % (hostname, ip)
+    request = urllib2.Request(url)
+    base64_string = base64.b64encode('%s:%s' % (user, password))
+    request.add_header("Authorization", "Basic %s" % base64_string)
+    res = urllib2.urlopen(request)
+    print res.getcode()
+    res_data = res.read()
+    print res_data
+
+
 def parse_and_fetch(request, remote_address):
-    # if "hostname" not in request.keys():
-    #     raise CommonException("-1","hostname not exist")
-    # if "user" not in request.keys():
-    #     raise CommonException("-1","user not exist")
-    # if "password" not in request.keys():
-    #     raise CommonException("-1","password not exist")
-    print remote_address
-    return remote_address
+    if "hostname" not in request.keys():
+        raise CommonException("-1", "hostname not exist")
+    if "user" not in request.keys():
+        raise CommonException("-1", "user not exist")
+    if "password" not in request.keys():
+        raise CommonException("-1", "password not exist")
+    return perform_dns_update(request["hostname"], request["user"], request["password"], remote_address)
+
 
 def app(environ, start_response):
     print "-----"
@@ -53,7 +67,6 @@ def app(environ, start_response):
     print "path_info:"+path_info
     print "remote_address:"+remote_address
 
-
     if request_method == "GET" :
         request = parse_qs(query_string)
     else:
@@ -68,7 +81,6 @@ def app(environ, start_response):
             request[d] = x[0]
     for (d,x) in request.items():
         print "key:"+d+",value:"+str(x)
-
 
     if path_info == "/" :
         response_string = ""
@@ -90,7 +102,6 @@ def app(environ, start_response):
 
     start_response(response_code,response_header)
     return [response_string]
-
 
 # 创建一个服务器，IP地址为空，端口是8000，处理函数是application:
 httpd = make_server('', 8090, app)
