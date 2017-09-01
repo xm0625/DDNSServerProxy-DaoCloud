@@ -55,9 +55,6 @@ def parse_and_fetch(request, remote_address):
 
 
 def app(environ, start_response):
-    print "-----"
-    print environ
-    print "-----"
     request_method = environ["REQUEST_METHOD"] #GET
     path_info = environ["PATH_INFO"]  # /hi/name/index.action
     query_string = environ["QUERY_STRING"] # ?后面的东西
