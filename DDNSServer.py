@@ -34,7 +34,7 @@ def parse_and_fetch(request, remote_address):
     # if "password" not in request.keys():
     #     raise CommonException("-1","password not exist")
     print remote_address
-    return "success"
+    return remote_address
 
 def app(environ, start_response):
     print "-----"
