@@ -34,10 +34,14 @@ def perform_dns_update(hostname, user, password, ip):
     request = urllib2.Request(url)
     base64_string = base64.b64encode('%s:%s' % (user, password))
     request.add_header("Authorization", "Basic %s" % base64_string)
-    res = urllib2.urlopen(request)
-    print res.getcode()
-    res_data = res.read()
-    print res_data
+    try:
+        res = urllib2.urlopen(request)
+        res_data = res.read()
+        return {"httpCode": 200, "response": res_data}
+    except urllib2.HTTPError as e:
+        return {"httpCode": e.code}
+    except urllib2.URLError as e:
+        return {"httpCode": "-1", "reason": e.reason}
 
 
 def parse_and_fetch(request, remote_address):
