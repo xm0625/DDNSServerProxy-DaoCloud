@@ -17,7 +17,7 @@ import urllib,urllib2
 import json
 
 
-# Deprecated 概率性重启失败
+# Deprecated DaoCloud此API接口概率性重启失败
 def restart_app(api_token, app_id):
     url = "https://openapi.daocloud.io/v1/apps/" + app_id + "/actions/restart"
     req = urllib2.Request(url=url, data=urllib.urlencode({}), headers={"Authorization": "token "+api_token})
