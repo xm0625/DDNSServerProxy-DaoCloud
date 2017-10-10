@@ -1,6 +1,6 @@
 # DDNSServerProxy #
 
-部分地区实施域名审查(NJ网警), 3322DDNS上报接口躺枪, 利用DaoCloud免费的服务资源做一个Proxy  
+部分地区实施域名审查(NJ网警), 3322DDNS上报接口躺枪, 利用DaoCloud免费的服务资源做一个Proxy服务
 
 ### 简介 ###
 
