@@ -29,3 +29,5 @@
 * 替换<...>为你自己的信息
 * 可以使用 wget 'http://xxxx.daoapp.io/?hostname=<你的域名>&user=<你的用户名>&password=<你的密码>' 来更新
 * 可以加入到crontab定期执行
+
+
